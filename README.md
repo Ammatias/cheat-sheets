@@ -1,10 +1,10 @@
-# Ammatias `Homelab`
+# Ammatias `Cheat-sheets`
 
 
 **Hey, there!**
 
 
-This Repository **Cheat-sheets** contains all my homelab documentation files. Here you'll find notes, setups, and configurations for infrastructure, applications, networking, and more.
+This Repository **Cheat-sheets** is my personal knowledge-base. Here you'll find code-snippets, technical documentation, and command reference for various tools, and technologies.
 
 > :warning: Be aware, products can change over time. I do my best to keep up with the latest changes and releases, but please understand that this won’t always be the case.
 
