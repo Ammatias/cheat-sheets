@@ -14,6 +14,23 @@ echo "================================="
 timedatectl set-timezone "$TIMEZONE"
 
 echo "================================="
+echo " Configure SSH"
+echo "================================="
+SSHD_CONFIG="/etc/ssh/sshd_config"
+sed -i \
+    -e 's/^#\?Port.*/Port 22/' \
+    -e 's/^#\?AddressFamily.*/AddressFamily any/' \
+    -e 's|^#\?ListenAddress .*|ListenAddress 0.0.0.0|' \
+    -e '/^ListenAddress 0.0.0.0/a ListenAddress ::' \
+    -e 's/^#\?LoginGraceTime.*/LoginGraceTime 2m/' \
+    -e 's/^#\?PermitRootLogin.*/PermitRootLogin yes/' \
+    -e 's/^#\?StrictModes.*/StrictModes yes/' \
+    -e 's/^#\?MaxAuthTries.*/MaxAuthTries 3/' \
+    -e 's/^#\?MaxSessions.*/MaxSessions 2/' \
+    "$SSHD_CONFIG"
+systemctl restart ssh || systemctl restart sshd
+
+echo "================================="
 echo " System update"
 echo "================================="
 apt update
@@ -74,6 +91,26 @@ echo "================================="
 echo " Test container"
 echo "================================="
 docker run --rm hello-world
+
+echo "================================="
+echo " Deploy Hawser"
+echo "================================="
+mkdir -p /home/hawser
+cat > /home/hawser/docker-compose.yaml <<'EOF'
+services:
+  hawser:
+    image: ghcr.io/finsys/hawser:latest
+    container_name: hawser
+    restart: unless-stopped
+    environment:
+      - ALLOW_INSECURE_NO_AUTH=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 2376:2376
+EOF
+cd /home/hawser
+docker compose up -d
 
 echo "================================="
 echo " Installation completed"
