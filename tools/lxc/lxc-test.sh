@@ -102,6 +102,8 @@ services:
     image: ghcr.io/finsys/hawser:latest
     container_name: hawser
     restart: unless-stopped
+    environment:
+      - ALLOW_INSECURE_NO_AUTH=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
