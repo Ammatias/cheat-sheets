@@ -93,6 +93,13 @@ echo "================================="
 docker run --rm hello-world
 
 echo "================================="
+echo " Creating networks"
+echo " frontend/backend"
+echo "================================="
+docker network create -d bridge frontend
+docker network create -d bridge backend
+
+echo "================================="
 echo " Deploy Hawser"
 echo "================================="
 mkdir -p /home/hawser
