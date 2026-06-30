@@ -61,10 +61,13 @@ wget -O lxc.sh https://raw.githubusercontent.com/Ammatias/cheat-sheets/main/tool
 Features:
 
 * Configure timezone
+* Configure SSH
 * Update operating system
 * Install Docker Engine
 * Install Docker Compose Plugin
 * Install Docker Buildx
+* Create network frontend/backend
+* Install hawser agent for Dockhand
 * Verify installation
 
 ## Repository Structure
